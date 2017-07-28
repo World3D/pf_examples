@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package login;
+
+//登录请求
+message LoginRequest {
+  string user = 1;          //玩家名
+  string password = 2;      //玩家密码
+}
+
+//登录响应
+message LoginResponse {
+  int32 err = 1;            //0 成功 其他失败
+}
