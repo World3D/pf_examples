@@ -34,11 +34,15 @@ int main(int argc, char **argv) {
   /* Send normal packet with protobuf. */
   login::LoginRequest packet;
   packet.set_user("viticm");
-  packet.set_password("123456");
+  char genpass[1024]{0};
+  snprintf(genpass, sizeof(genpass) - 1, "n: %p", connector);
+  packet.set_password(genpass);
   protobuf_send(*connector, pack::kLoginRequest, packet);
 
   /* Send logic packet with protobuf. */
-  packet.set_password("654321"); //This will dirrent from normal packet.
+  memset(genpass, 0, sizeof(genpass));
+  snprintf(genpass, sizeof(genpass) - 1, "l: %p", &packet);
+  packet.set_password(genpass); //This will dirrent from normal packet.
   protobuf_lsend(*connector, 
                  pack::kLogicSupport, 
                  logic::kLogin, 
