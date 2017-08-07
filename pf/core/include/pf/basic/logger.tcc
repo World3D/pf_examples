@@ -38,10 +38,10 @@ void Logger::fast_savelog(const char *logname, const char *format, ...) {
     vsnprintf(temp, sizeof(temp) - 1, format, argptr);
     va_end(argptr);
     if (GLOBALS["log.fast"] == false) { //disable fast log.
-    char log_filename[FILENAME_MAX]{0};
-    get_log_filename(logname, log_filename);
-    slow_savelog<type>(log_filename, temp);
-    return;
+      char log_filename[FILENAME_MAX]{0};
+      get_log_filename(logname, log_filename);
+      slow_savelog<type>(log_filename, temp);
+      return;
     }
     char time_str[256]{0};
     get_log_timestr(time_str, sizeof(time_str) - 1);
@@ -71,14 +71,14 @@ void Logger::fast_savelog(const char *logname, const char *format, ...) {
   strncat(buffer, LF, sizeof(LF)); //add wrap
   if (GLOBALS["log.active"] == false) return; //save log condition
   int32_t length = static_cast<int32_t>(strlen(buffer));
-  if (length <= 0) return;
+  if (length <= 0 || length + position > kDefaultLogCacheSize) return;
   if (GLOBALS["log.singlefile"] == true) {
-    //do nothing(one log file is not active in pap)
+    //do nothing(one log file is not active now)
   }
   {
     std::unique_lock<std::mutex> autolock(*mutex);
     try {
-    memcpy(cache + position, buffer, length);
+      memcpy(cache + position, buffer, length);
     } catch(...) {
     //do nogthing
     }

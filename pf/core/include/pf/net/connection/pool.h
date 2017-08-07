@@ -36,6 +36,7 @@ class PF_API Pool {
    uint32_t get_max_size() const { return max_size_; }
    uint32_t size() const { return size_; }
    bool create_default_connections();
+   bool full() const { return size_ == max_size_; };
 
  private:
    //Basic **connections_; //注意，这是一个指向Base对象的数组指针
