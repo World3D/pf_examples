@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
   
   /* App run. */
   pf_engine::Application app(&engine);
-  app.run();
+  app.run(argc, argv);
 
   return 0;
 }
