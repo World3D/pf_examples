@@ -9,7 +9,7 @@ do
   ./client --daemon
 done
 
-ps aux | grep client --daemon | awk '{print $2}' | xargs kill -9
+ps aux | grep "client --daemon" | awk '{print $2}' | xargs kill -9
 
 ((times += 100))
 echo "now times: "$times
