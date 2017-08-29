@@ -34,9 +34,9 @@ class PF_API Basic {
    int32_t send(const void *buffer, uint32_t length, uint32_t flag = 0);
    int32_t receive(void *buffer, uint32_t length, uint32_t flag = 0);
    uint32_t available() const;
-   int32_t accept(struct sockaddr_in *accept_sockaddr_in = NULL);
-   bool bind(const char *ip = NULL);
-   bool bind(uint16_t port, const char *ip = NULL);
+   int32_t accept(struct sockaddr_in *accept_sockaddr_in = nullptr);
+   bool bind(const char *ip = nullptr);
+   bool bind(uint16_t port, const char *ip = nullptr);
    bool listen(uint32_t backlog);
    static int32_t select(int32_t maxfdp, 
                          fd_set *readset, 

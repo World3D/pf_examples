@@ -31,7 +31,7 @@ template <typename T> class Singleton {
 
    ~Singleton() {
      Assert(singleton_);
-     singleton_ = NULL;
+     singleton_ = nullptr;
    }
 
    static T &getsingleton() {

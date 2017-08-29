@@ -1,12 +1,14 @@
 /**
  * PLAIN FRAMEWORK ( https://github.com/viticm/plainframework )
- * $Id manager.h
+ * $Id interface.h
  * @link https://github.com/viticm/plainframework for the canonical source repository
  * @copyright Copyright (c) 2014- viticm( viticm.ti@gmail.com )
  * @license
  * @user viticm<viticm.ti@gmail.com>
- * @date 2014/06/23 14:00
+ * @date 2017/08/09 20:22
  * @uses connection manager class
+ *       With ten million with rand and mix connections pass in 2017-8-9.
+ *       With more the 25t buffers send and recv in single connection in 2017-8-26(three days).
  */
 #ifndef PF_NET_CONNECTION_MANAGER_BASE_H_
 #define PF_NET_CONNECTION_MANAGER_BASE_H_
@@ -63,6 +65,7 @@ class PF_API Interface {
    uint64_t get_send_bytes();
    uint64_t get_receive_bytes();
    bool is_ready() const { return ready_; };
+   bool full() const { return pool_ ? pool_->full() : true; };
 
  public: //Packet queue, can work in mutli thread.
    virtual bool send(packet::Interface *packet, 

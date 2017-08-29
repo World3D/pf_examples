@@ -489,8 +489,47 @@ inline variable_struct::operator const char *() {
 }
   
 template <typename T>
-variable_struct::operator T() {
+inline variable_struct::operator T() {
   return this->get<T>();
+}
+
+inline std::ostream& operator<<(std::ostream& os, const variable_t &object) {
+  switch (object.type) {
+    case kVariableTypeInt32:
+      os << object.get<int32_t>();
+      break;
+    case kVariableTypeUint32:
+      os << object.get<uint32_t>();
+      break;
+    case kVariableTypeInt16:
+      os << object.get<int16_t>();
+      break;
+    case kVariableTypeUint16:
+      os << object.get<uint16_t>();
+      break;
+    case kVariableTypeInt8:
+      os << object.get<int8_t>();
+      break;
+    case kVariableTypeUint8:
+      os << object.get<uint8_t>();
+      break;
+    case kVariableTypeInt64:
+      os << object.get<int64_t>();
+      break;
+    case kVariableTypeUint64:
+      os << object.get<uint64_t>();
+      break;
+    case kVariableTypeFloat:
+      os << object.get<float>();
+      break;
+    case kVariableTypeDouble:
+      os << object.get<double>();
+      break;
+    default:
+      os << object.data;
+      break;
+  }
+  return os;
 }
 
 } //namespace type

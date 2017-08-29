@@ -32,7 +32,20 @@ class PF_API Basic {
  public:
    void init();
    bool resize(int32_t size);
-   uint32_t reallength() const;
+   size_t size() const;
+   /* Try use the unused buffer size, maybe use the resize extend buffer size. */
+   bool use(size_t size) {
+     auto freecount = unused();
+     if (size >= freecount && !resize(size - freecount + 1)) return false;
+     return true;
+   };
+   size_t unused() const {
+    return streamdata_.head <= streamdata_.tail ? 
+           streamdata_.bufferlength - streamdata_.tail + streamdata_.head - 1 : 
+           streamdata_.head - streamdata_.tail - 1;
+   };
+   size_t max_size() const { return streamdata_.bufferlength; }
+   bool empty() const { return streamdata_.head == streamdata_.tail; }
    void clear();
    socket::Basic *socket() { return socket_; };
    Compressor *getcompressor() { return &compressor_; };
